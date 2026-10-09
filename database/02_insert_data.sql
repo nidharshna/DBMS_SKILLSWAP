@@ -1,0 +1,307 @@
+SET SQLBLANKLINES ON;
+SET DEFINE OFF;
+
+-- ============================================
+-- SKILLSWAP - SAMPLE DATA
+-- File: 02_insert_data.sql
+-- ============================================
+
+
+-- 1. CATEGORIES
+INSERT INTO CATEGORIES (CATEGORY_NAME, DESCRIPTION)
+VALUES ('Programming', 'Programming languages and software development');
+
+INSERT INTO CATEGORIES (CATEGORY_NAME, DESCRIPTION)
+VALUES ('Databases', 'Database design and database management');
+
+INSERT INTO CATEGORIES (CATEGORY_NAME, DESCRIPTION)
+VALUES ('Design', 'User interface and visual design');
+
+
+-- 2. USERS
+INSERT INTO USERS (NAME, EMAIL, PASSWORD_HASH, LOCATION, BIO)
+VALUES ('Arun Kumar', 'arun@example.com', 'demo_password_1',
+        'Vellore', 'Interested in Python and software development');
+
+INSERT INTO USERS (NAME, EMAIL, PASSWORD_HASH, LOCATION, BIO)
+VALUES ('Priya Sharma', 'priya@example.com', 'demo_password_2',
+        'Vellore', 'Interested in SQL and database management');
+
+INSERT INTO USERS (NAME, EMAIL, PASSWORD_HASH, LOCATION, BIO)
+VALUES ('Kavin Raj', 'kavin@example.com', 'demo_password_3',
+        'Chennai', 'Interested in C++ programming');
+
+INSERT INTO USERS (NAME, EMAIL, PASSWORD_HASH, LOCATION, BIO)
+VALUES ('Meera Devi', 'meera@example.com', 'demo_password_4',
+        'Vellore', 'Interested in UI/UX design');
+
+
+-- 3. SKILLS
+INSERT INTO SKILLS (CATEGORY_ID, SKILL_NAME, DESCRIPTION)
+VALUES (
+    (SELECT CATEGORY_ID FROM CATEGORIES
+     WHERE CATEGORY_NAME = 'Programming'),
+    'Python', 'Python programming fundamentals'
+);
+
+INSERT INTO SKILLS (CATEGORY_ID, SKILL_NAME, DESCRIPTION)
+VALUES (
+    (SELECT CATEGORY_ID FROM CATEGORIES
+     WHERE CATEGORY_NAME = 'Programming'),
+    'C++', 'C++ programming fundamentals'
+);
+
+INSERT INTO SKILLS (CATEGORY_ID, SKILL_NAME, DESCRIPTION)
+VALUES (
+    (SELECT CATEGORY_ID FROM CATEGORIES
+     WHERE CATEGORY_NAME = 'Databases'),
+    'SQL', 'SQL queries and relational databases'
+);
+
+INSERT INTO SKILLS (CATEGORY_ID, SKILL_NAME, DESCRIPTION)
+VALUES (
+    (SELECT CATEGORY_ID FROM CATEGORIES
+     WHERE CATEGORY_NAME = 'Design'),
+    'UI/UX Design', 'User interface and user experience design'
+);
+
+
+-- 4. SKILLOFFERINGS
+INSERT INTO SKILLOFFERINGS
+    (USER_ID, SKILL_ID, PROFICIENCY_LEVEL)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'arun@example.com'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'Python'),
+    'INTERMEDIATE'
+);
+
+INSERT INTO SKILLOFFERINGS
+    (USER_ID, SKILL_ID, PROFICIENCY_LEVEL)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'priya@example.com'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'SQL'),
+    'ADVANCED'
+);
+
+INSERT INTO SKILLOFFERINGS
+    (USER_ID, SKILL_ID, PROFICIENCY_LEVEL)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'kavin@example.com'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'C++'),
+    'INTERMEDIATE'
+);
+
+INSERT INTO SKILLOFFERINGS
+    (USER_ID, SKILL_ID, PROFICIENCY_LEVEL)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'meera@example.com'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'UI/UX Design'),
+    'ADVANCED'
+);
+
+
+-- 5. SKILLREQUESTS
+INSERT INTO SKILLREQUESTS
+    (USER_ID, SKILL_ID, EXPECTED_TEACHER_PROFICIENCY)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'arun@example.com'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'SQL'),
+    'INTERMEDIATE'
+);
+
+INSERT INTO SKILLREQUESTS
+    (USER_ID, SKILL_ID, EXPECTED_TEACHER_PROFICIENCY)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'priya@example.com'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'Python'),
+    'INTERMEDIATE'
+);
+
+INSERT INTO SKILLREQUESTS
+    (USER_ID, SKILL_ID, EXPECTED_TEACHER_PROFICIENCY)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'kavin@example.com'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'UI/UX Design'),
+    'INTERMEDIATE'
+);
+
+INSERT INTO SKILLREQUESTS
+    (USER_ID, SKILL_ID, EXPECTED_TEACHER_PROFICIENCY)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'meera@example.com'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'C++'),
+    'INTERMEDIATE'
+);
+
+
+-- 6. USERPREFERENCES
+INSERT INTO USERPREFERENCES
+    (USER_ID, PREFERRED_MODE, PREFERRED_LOCATION,
+     MINIMUM_TEACHER_RATING, PREFERRED_SESSION_DURATION,
+     PREFERRED_SESSION_FREQUENCY)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'arun@example.com'),
+    'ONLINE', NULL, 4.0, 60, 2
+);
+
+INSERT INTO USERPREFERENCES
+    (USER_ID, PREFERRED_MODE, PREFERRED_LOCATION,
+     MINIMUM_TEACHER_RATING, PREFERRED_SESSION_DURATION,
+     PREFERRED_SESSION_FREQUENCY)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'priya@example.com'),
+    'EITHER', 'Vellore', 4.0, 60, 2
+);
+
+INSERT INTO USERPREFERENCES
+    (USER_ID, PREFERRED_MODE, PREFERRED_LOCATION,
+     MINIMUM_TEACHER_RATING, PREFERRED_SESSION_DURATION,
+     PREFERRED_SESSION_FREQUENCY)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'kavin@example.com'),
+    'ONLINE', NULL, 3.5, 45, 3
+);
+
+INSERT INTO USERPREFERENCES
+    (USER_ID, PREFERRED_MODE, PREFERRED_LOCATION,
+     MINIMUM_TEACHER_RATING, PREFERRED_SESSION_DURATION,
+     PREFERRED_SESSION_FREQUENCY)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'meera@example.com'),
+    'OFFLINE', 'Vellore', 4.0, 60, 2
+);
+
+
+-- 7. AVAILABILITY
+INSERT INTO AVAILABILITY
+    (USER_ID, DAY_OF_WEEK, START_TIME, END_TIME)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'arun@example.com'),
+    'MONDAY', '10:00', '12:00'
+);
+
+INSERT INTO AVAILABILITY
+    (USER_ID, DAY_OF_WEEK, START_TIME, END_TIME)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'priya@example.com'),
+    'TUESDAY', '14:00', '16:00'
+);
+
+INSERT INTO AVAILABILITY
+    (USER_ID, DAY_OF_WEEK, START_TIME, END_TIME)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'kavin@example.com'),
+    'WEDNESDAY', '10:00', '12:00'
+);
+
+INSERT INTO AVAILABILITY
+    (USER_ID, DAY_OF_WEEK, START_TIME, END_TIME)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'meera@example.com'),
+    'THURSDAY', '14:00', '16:00'
+);
+
+
+-- 8. MATCHES
+-- Match 1: Arun teaches Python; Priya teaches SQL.
+INSERT INTO MATCHES
+    (USER_A_ID, USER_B_ID, SKILL_A_TEACHES,
+     SKILL_B_TEACHES, STATUS)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'arun@example.com'),
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'priya@example.com'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'Python'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'SQL'),
+    'ACCEPTED'
+);
+
+-- Match 2: Kavin teaches C++; Meera teaches UI/UX Design.
+INSERT INTO MATCHES
+    (USER_A_ID, USER_B_ID, SKILL_A_TEACHES,
+     SKILL_B_TEACHES, STATUS)
+VALUES (
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'kavin@example.com'),
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'meera@example.com'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'C++'),
+    (SELECT SKILL_ID FROM SKILLS WHERE SKILL_NAME = 'UI/UX Design'),
+    'ACCEPTED'
+);
+
+
+-- 9. SESSIONS
+-- Completed sample session for the first match.
+INSERT INTO SESSIONS
+    (MATCH_ID, SCHEDULED_DATE, START_TIME, DURATION_MINUTES,
+     SESSION_MODE, LOCATION, STATUS)
+VALUES (
+    (SELECT MATCH_ID FROM MATCHES
+     WHERE USER_A_ID =
+           (SELECT USER_ID FROM USERS WHERE EMAIL = 'arun@example.com')
+       AND USER_B_ID =
+           (SELECT USER_ID FROM USERS WHERE EMAIL = 'priya@example.com')),
+    TO_DATE('2026-09-20', 'YYYY-MM-DD'),
+    '10:00', 60, 'ONLINE', NULL, 'COMPLETED'
+);
+
+-- Upcoming sample session for the second match.
+INSERT INTO SESSIONS
+    (MATCH_ID, SCHEDULED_DATE, START_TIME, DURATION_MINUTES,
+     SESSION_MODE, LOCATION, STATUS)
+VALUES (
+    (SELECT MATCH_ID FROM MATCHES
+     WHERE USER_A_ID =
+           (SELECT USER_ID FROM USERS WHERE EMAIL = 'kavin@example.com')
+       AND USER_B_ID =
+           (SELECT USER_ID FROM USERS WHERE EMAIL = 'meera@example.com')),
+    TO_DATE('2026-10-15', 'YYYY-MM-DD'),
+    '14:00', 60, 'OFFLINE', 'Vellore Campus', 'SCHEDULED'
+);
+
+
+-- 10. REVIEWS
+-- Arun reviews Priya for their completed session.
+INSERT INTO REVIEWS
+    (SESSION_ID, REVIEWER_ID, REVIEWEE_ID, RATING, FEEDBACK)
+VALUES (
+    (SELECT SESSION_ID FROM SESSIONS
+     WHERE MATCH_ID =
+           (SELECT MATCH_ID FROM MATCHES
+            WHERE USER_A_ID =
+                  (SELECT USER_ID FROM USERS
+                   WHERE EMAIL = 'arun@example.com')
+              AND USER_B_ID =
+                  (SELECT USER_ID FROM USERS
+                   WHERE EMAIL = 'priya@example.com'))
+       AND SCHEDULED_DATE = TO_DATE('2026-09-20', 'YYYY-MM-DD')),
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'arun@example.com'),
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'priya@example.com'),
+    5, 'Very helpful session. The concepts were explained clearly.'
+);
+
+-- Priya reviews Arun for their completed session.
+INSERT INTO REVIEWS
+    (SESSION_ID, REVIEWER_ID, REVIEWEE_ID, RATING, FEEDBACK)
+VALUES (
+    (SELECT SESSION_ID FROM SESSIONS
+     WHERE MATCH_ID =
+           (SELECT MATCH_ID FROM MATCHES
+            WHERE USER_A_ID =
+                  (SELECT USER_ID FROM USERS
+                   WHERE EMAIL = 'arun@example.com')
+              AND USER_B_ID =
+                  (SELECT USER_ID FROM USERS
+                   WHERE EMAIL = 'priya@example.com'))
+       AND SCHEDULED_DATE = TO_DATE('2026-09-20', 'YYYY-MM-DD')),
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'priya@example.com'),
+    (SELECT USER_ID FROM USERS WHERE EMAIL = 'arun@example.com'),
+    5, 'Great learning experience and good communication.'
+);
+
+
+-- Save all inserted sample data.
+COMMIT;
+
+
+-- ============================================
+-- END OF SKILLSWAP SAMPLE DATA
+-- ============================================
