@@ -1,5 +1,5 @@
 .venv/
-**pycache**/
+__pycache__/
+*.py[cod]
 .DS_Store
 .env
-app.py
