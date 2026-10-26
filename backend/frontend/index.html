@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f4">
+  <title>SkillSwap — Learn together</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <main id="auth-screen" class="auth-shell">
+    <section class="auth-brand">
+      <div class="brand-mark">S<span>↗</span></div>
+      <div class="brand-copy"><span class="eyebrow">SKILLSWAP COMMUNITY</span><h1>Good things happen<br>when skills are shared.</h1><p>Teach what you know. Learn what you love. Grow together.</p></div>
+      <div class="auth-orbit orbit-one"></div><div class="auth-orbit orbit-two"></div>
+      <div class="auth-foot"><span>01 — Share</span><span>02 — Connect</span><span>03 — Grow</span></div>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-mobile-brand"><div class="brand-mark">S<span>↗</span></div><b>SkillSwap</b></div>
+      <div class="auth-form-wrap">
+        <span class="eyebrow" id="auth-eyebrow">YOUR COMMUNITY STARTS HERE</span>
+        <h2 id="auth-title">Welcome back</h2><p class="muted" id="auth-subtitle">Sign in to pick up where you left off.</p>
+        <div class="auth-tabs"><button class="auth-tab active" data-auth-mode="login">Log in</button><button class="auth-tab" data-auth-mode="register">Create account</button></div>
+        <form id="auth-form" class="form-stack">
+          <label id="name-field" class="field hidden">Full name<input name="name" autocomplete="name" placeholder="e.g. Priya Sharma"></label>
+          <label class="field">Email address<input name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+          <label class="field">Password<input name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required minlength="1"></label>
+          <label id="location-field" class="field hidden">City or location <span class="optional">Optional</span><input name="location" placeholder="e.g. Vellore"></label>
+          <button class="btn btn-primary btn-full" id="auth-submit" type="submit">Log in <span>↗</span></button>
+        </form>
+        <p class="auth-note">A community built on curiosity, generosity, and shared progress.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="app-shell" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar-brand" href="#dashboard" aria-label="SkillSwap home"><div class="brand-mark small">S<span>↗</span></div><span>SkillSwap<small>LEARN TOGETHER</small></span></a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">⌂</span>Overview</button>
+        <button class="nav-item" data-page="explore"><span class="nav-icon">⌕</span>Explore skills</button>
+        <button class="nav-item" data-page="my-skills"><span class="nav-icon">✳</span>My skills</button>
+        <button class="nav-item" data-page="matches"><span class="nav-icon">⟷</span>My matches <span id="match-nav-count" class="nav-count hidden">0</span></button>
+        <button class="nav-item" data-page="sessions"><span class="nav-icon">▦</span>Sessions</button>
+        <button class="nav-item" data-page="reviews"><span class="nav-icon">☆</span>Reviews</button>
+      </nav>
+      <div class="side-label side-label-lower">YOUR SPACE</div>
+      <nav class="main-nav"><button class="nav-item" data-page="profile"><span class="nav-icon">◉</span>Profile & preferences</button></nav>
+      <div class="sidebar-bottom"><div class="side-tip"><span class="tip-spark">✳</span><b>Small steps, big growth.</b><p>Every skill you share can open a new door for someone.</p></div><button id="logout-btn" class="logout-btn"><span>↪</span> Log out</button></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar"><button id="mobile-menu" class="mobile-menu" aria-label="Open navigation">☰</button><div class="breadcrumb"><span>Workspace</span><span class="crumb-slash">/</span><b id="page-crumb">Overview</b></div><div class="topbar-right"><span class="live-dot"></span><span class="topbar-status">Community space</span><div id="top-avatar" class="avatar">S</div><div class="top-user"><b id="top-name">Member</b><span>SkillSwap member</span></div></div></header>
+      <div class="page-container">
+        <section id="page-dashboard" class="page active"></section>
+        <section id="page-explore" class="page"></section>
+        <section id="page-my-skills" class="page"></section>
+        <section id="page-matches" class="page"></section>
+        <section id="page-sessions" class="page"></section>
+        <section id="page-reviews" class="page"></section>
+        <section id="page-profile" class="page"></section>
+      </div>
+      <footer class="app-footer"><span>SkillSwap © 2026</span><span>Made for people who love to learn <span class="footer-heart">✳</span></span></footer>
+    </main>
+  </div>
+</body>
+</html>
